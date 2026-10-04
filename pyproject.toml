@@ -1,0 +1,14 @@
+[project]
+name = "leb128-unsigned-integer"
+version = "0.1.0"
+description = "Reads and writes unsigned integers encoded as Little-Endian Base 128, consuming variable byte counts from a buffer."
+requires-python = ">=3.10"
+dependencies = []
+readme = "README.md"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
