@@ -27,3 +27,10 @@ The trade-off is simplicity over generality. There is no signed-LEB128 variant h
 The writer rejects integers above 2**64 - 1. This is a deliberate ceiling, not a bug: real-world LEB128 consumers cap the meaningful range well below 64 bits, and silently accepting thousand-byte encodings of astronomically large integers would let bugs propagate. If your use case genuinely needs unbounded magnitude, this is the wrong library.
 
 Zero is encoded as the single byte `b'\x00'`, not as the empty byte string. An encoder that emits nothing for zero makes the value indistinguishable from "absent" on read, which breaks round-tripping. Every value this library writes, including zero, can be read back.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
